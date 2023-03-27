@@ -25,15 +25,23 @@ export class LeaveRecordController {
     return this.leaveRecordService.getRecentLeaves(user.id);
   }
 
-  // @Post()
-  // create(@Body() createLeaveRecordDto: CreateLeaveRecordDto) {
-  //   return this.leaveRecordService.create(createLeaveRecordDto);
-  // }
+  @Post('api/apply-leave')
+  create(
+    @Body() createLeaveRecordDto: CreateLeaveRecordDto,
+    @GetUser() user: User,
+  ): Promise<any> {
+    return this.leaveRecordService.create(createLeaveRecordDto, user.id);
+  }
 
-  // @Get()
-  // findAll() {
-  //   return this.leaveRecordService.findAll();
-  // }
+  @Get('api/myleaves')
+  findMyLeaves(@GetUser() user: User) {
+    return this.leaveRecordService.getMyLeaves(user.id);
+  }
+
+  @Get('api/all-leaves')
+  findAllLeaves(@GetUser() user: User) {
+    return this.leaveRecordService.getAllLeaves(user.id);
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
